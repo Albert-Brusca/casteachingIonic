@@ -50,7 +50,7 @@ import {
   IonToolbar
 } from '@ionic/vue';
 export default {
-  name: 'Folder',
+  name: 'Video',
   components: {
     IonButtons,
     IonContent,

@@ -116,7 +116,8 @@ import {
   IonRefresherContent,
   IonContent,
   IonSkeletonText
-} from "@ionic/vue";import casteaching from '@abrusca/casteachingalbert'
+} from "@ionic/vue";
+import casteaching from '@abrusca/casteachingalbert'
 export default {
   name: "Videos",
   components: {

@@ -2,6 +2,18 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 const routes = [
   {
+    path: '/login',
+    component: () => import ('../views/Login.vue'),
+    name: 'login'
+  },
+  {
+    path: '/user',
+    component: () => import ('../views/User.vue'),
+    name: 'user',
+    meta: { private: true}
+  },
+
+  {
     path: '',
     redirect: '/folder/Inbox'
   },
