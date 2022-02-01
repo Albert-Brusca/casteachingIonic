@@ -1,10 +1,23 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
+import store from "../store"
 
 const routes = [
+  {
+    path: '/dashboard',
+    component: () => import ('../views/Dashboard.vue'),
+    name: 'dashboard',
+    meta: { private: true }
+
+  },
   {
     path: '/login',
     component: () => import ('../views/Login.vue'),
     name: 'login'
+  },
+  {
+    path: '/logout',
+    component: () => import ('../views/Logout.vue'),
+    name: 'logout'
   },
   {
     path: '/user',
@@ -15,7 +28,7 @@ const routes = [
 
   {
     path: '',
-    redirect: '/folder/Inbox'
+    redirect: 'dashboard'
   },
   {
     path: '/folder/:id',
@@ -40,5 +53,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach(async (to, from, next) => {
+
+  var authenticated = false;
+
+  const user = await store.get('user')
+  if (user !== null)
+    authenticated = true;
+
+  if (to.meta.private && !authenticated) {
+    console.log(to.fullPath)
+    next({
+      name: 'login',
+      params: {
+        wantedRoute:to.fullPath,
+      },
+    })
+    return
+  }
+  next()
+});
 
 export default router

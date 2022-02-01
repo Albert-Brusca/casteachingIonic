@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <ion-title>User</ion-title>
+        <ion-title>Dashboard</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,44 +15,49 @@
           <ion-title size="large">Video {{ $route.params.id }}</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div>
-        <h1>User</h1>
-        name: {{ this.user && this.user.name}}
-      </div>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>DASHBOARD SUBTITLE</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+
+          DASHBOARD
+
+        </ion-card-content>
+      </ion-card>
+
     </ion-content>
   </ion-page>
+
 </template>
 
 <script>
 import {
   IonButtons,
+  IonCard, IonCardContent,
+  IonCardHeader, IonCardSubtitle,
   IonContent,
-  IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
+  IonHeader,
+  IonMenuButton,
+  IonPage,
+  IonTitle,
+  IonToolbar
 } from "@ionic/vue";
-import store from "../store"
-
 export default {
-  name: "user",
+  name: 'Dashboard',
   components: {
+    IonMenuButton,
     IonContent,
-    IonHeader,
-    IonToolbar,
+    IonPage,
     IonButtons,
     IonTitle,
-    IonPage,
-    IonMenuButton,
+    IonToolbar,
+    IonHeader,
+    IonCard,
+    IonCardHeader,
+    IonCardContent,
+    IonCardSubtitle
   },
-  data () {
-    return {
-      user: {}
-    }
-  },
-  async mounted() {
-    this.user = await store.get('user')
-  }
 }
 </script>
-
-<style scoped>
-
-</style>

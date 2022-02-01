@@ -117,7 +117,8 @@ import {
   IonContent,
   IonSkeletonText
 } from "@ionic/vue";
-import casteaching from '@abrusca/casteachingalbert'
+import casteaching from "@acacha/casteaching";
+const api = casteaching({baseUrl: 'https://casteaching.albertbrusca.me/api'})
 export default {
   name: "Videos",
   components: {
@@ -150,7 +151,7 @@ export default {
       this.refresher.complete();
     },
     async fetchVideos() {
-      this.videos = await casteaching.videos()
+      this.videos = await api.videos()
     }
   }
 }

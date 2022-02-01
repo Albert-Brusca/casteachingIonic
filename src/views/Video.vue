@@ -34,7 +34,10 @@
 </template>
 
 <script>
-import casteaching from '@abrusca/casteachingalbert'
+import casteaching from "@acacha/casteaching";
+
+const api = casteaching({baseUrl: 'https://casteaching.albertbrusca.me/api'})
+
 import {
   IonButtons,
   IonCard,
@@ -71,7 +74,7 @@ export default {
     }
   },
   async created() {
-    this.video = await casteaching.video.show(this.$route.params.id);
+    this.video = await api.video.show(this.$route.params.id);
     // this.video = {
     //   id: 1,
     //   title: "Ubuntu 101",
