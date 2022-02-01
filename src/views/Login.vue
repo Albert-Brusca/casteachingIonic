@@ -49,8 +49,9 @@ import {
 } from "@ionic/vue";
 
 import { Device } from '@capacitor/device';
-import axios from 'axios'
 import store from "../store";
+import casteaching from "@acacha/casteaching";
+
 
 export default {
   name: "login",
@@ -83,43 +84,20 @@ export default {
 
       let token = null
       const device_name = (info && info.name) || 'TokenCasteachingIonic'
+      const api = casteaching({baseUrl:'https://casteaching.albertbrusca.me/api'})
+      try {
+        token = casteaching.login(this.email,this.password,device_name)
+        api.setToken(token)
+      }catch (error) {
+        console.log(error)
+      }
 
-      const apiClient = axios.create({
-        baseURL: 'https://casteaching.albertbrusca.me/api',
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }
-      })
-      const postData = {
-        email: this.email,
-        password: this.password,
-        device_name: device_name
-      }
-      let response = null
-      let response2 = null
+      let user
       try {
-        response = await apiClient.post('/sanctum/token', postData)
+        user = await api.user()
       } catch (error) {
         console.log(error);
       }
-      token = response.data
-      const axiosClient = axios.create({
-        baseURL: 'https://casteaching.albertbrusca.me/api',
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      })
-      try {
-        response2 = await axiosClient.get('/user')
-      } catch (error) {
-        console.log(error);
-      }
-      const user = response2.data
 
       await store.set('token', token)
       await store.set('user', user)
