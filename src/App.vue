@@ -34,7 +34,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, albumsOutline, albumsSharp, folderOutline, folderSharp, caretForwardCircleOutline, caretForwardCircleSharp, videocamOutline, videocamSharp, logInOutline, logInSharp, logOutOutline, mailOutline, personOutline, personSharp, logOutSharp, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import store from "./store";
 
 
@@ -57,8 +57,6 @@ export default defineComponent({
   data() {
     return {
       appPages: [],
-      selectedIndex: null
-
     }
   },
   created() {
@@ -90,6 +88,18 @@ export default defineComponent({
       heartOutline,
       heartSharp,
       mailOutline,
+      logOutSharp,
+      logOutOutline,
+      logInOutline,
+      logInSharp,
+      videocamOutline,
+      videocamSharp,
+      caretForwardCircleOutline,
+      caretForwardCircleSharp,
+      folderOutline,
+      folderSharp,
+      albumsOutline,
+      albumsSharp,
       mailSharp,
       paperPlaneOutline,
       paperPlaneSharp,
@@ -97,6 +107,8 @@ export default defineComponent({
       trashSharp,
       warningOutline,
       warningSharp,
+      personOutline,
+      personSharp,
       isSelected: (url) => url === route.path ? 'selected' : ''
     }
   },
@@ -109,43 +121,43 @@ export default defineComponent({
         this.appPages.push({
           title: 'Dashboard',
           url: '/dashboard',
-          iosIcon: mailOutline,
-          mdIcon: mailSharp
+          iosIcon: albumsOutline,
+          mdIcon: albumsSharp
         })
         this.appPages.push(
             {
               title: 'User Profile',
               url: '/user',
-              iosIcon: mailOutline,
-              mdIcon: mailSharp
+              iosIcon: personOutline,
+              mdIcon: personSharp
             })
       }
       if (!user) {
         this.appPages.push({
           title: 'Login',
           url: '/login',
-          iosIcon: mailOutline,
-          mdIcon: mailSharp
+          iosIcon: logInOutline,
+          mdIcon: logInSharp
         })
       } else {
         this.appPages.push({
           title: 'Logout',
           url: '/logout',
-          iosIcon: mailOutline,
-          mdIcon: mailSharp
+          iosIcon: logOutOutline,
+          mdIcon: logOutSharp
         })
       }
       this.appPages.push({
         title: 'Video 1',
         url: '/videos/1',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
+        iosIcon: caretForwardCircleOutline,
+        mdIcon: caretForwardCircleSharp
       })
       this.appPages.push({
         title: 'Videos',
         url: '/videos',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
+        iosIcon: folderOutline,
+        mdIcon: folderSharp
       })
 
       const path = window.location.pathname;

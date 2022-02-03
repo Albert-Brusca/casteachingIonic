@@ -1,4 +1,5 @@
 <template>
+
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
@@ -10,6 +11,12 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">Video {{ $route.params.id }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>Please login</ion-card-subtitle>
@@ -30,6 +37,7 @@
 
         </ion-card-content>
       </ion-card>
+
     </ion-content>
   </ion-page>
 </template>
@@ -50,19 +58,17 @@ import {
 
 import { Device } from '@capacitor/device';
 import store from "../store";
-import casteaching from "@acacha/casteaching";
-
 
 export default {
-  name: "login",
+  name: 'login',
   components: {
+    IonMenuButton,
     IonContent,
-    IonHeader,
-    IonToolbar,
+    IonPage,
     IonButtons,
     IonTitle,
-    IonPage,
-    IonMenuButton,
+    IonToolbar,
+    IonHeader,
     IonCard,
     IonCardHeader,
     IonCardContent,
@@ -84,25 +90,21 @@ export default {
 
       let token = null
       const device_name = (info && info.name) || 'TokenCasteachingIonic'
-      const api = casteaching({baseUrl:'https://casteaching.albertbrusca.me/api'})
       try {
-        token = casteaching.login(this.email,this.password,device_name)
-        api.setToken(token)
-      }catch (error) {
-        console.log(error)
-      }
-
-      let user
-      try {
-        user = await api.user()
+        token = await this.casteaching.login(this.email,this.password,device_name)
+        this.casteaching.setToken(token)
       } catch (error) {
         console.log(error);
       }
-
+      let user
+      try {
+        user = await this.casteaching.user()
+      } catch (error) {
+        console.log(error);
+      }
       await store.set('token', token)
       await store.set('user', user)
       this.emitter.emit('login',user)
-
 
       let path = '/user'
 
@@ -110,10 +112,5 @@ export default {
       this.$router.push({ path })
     }
   }
-
 }
 </script>
-
-<style scoped>
-
-</style>
