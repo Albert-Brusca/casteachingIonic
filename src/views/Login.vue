@@ -33,7 +33,9 @@
             <ion-input v-model="password" placeholder="password" type="password"></ion-input>
           </ion-item>
 
-          <ion-button @click="login">Login</ion-button>
+
+          <ion-button v-if="disabled===false" @click="login">Login</ion-button>
+          <ion-spinner v-else-if="disabled === true" name="bubbles"></ion-spinner>
 
         </ion-card-content>
       </ion-card>
@@ -81,16 +83,19 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      disabled: false
     }
   },
   methods: {
     async login() {
+      this.disabled = true
       const info = await Device.getInfo();
 
       let token = null
       const device_name = (info && info.name) || 'TokenCasteachingIonic'
       try {
+
         token = await this.casteaching.login(this.email,this.password,device_name)
         this.casteaching.setToken(token)
       } catch (error) {
@@ -110,6 +115,8 @@ export default {
 
       if(this.$route.params && this.$route.params.wantedRoute) path = this.$route.params.wantedRoute
       this.$router.push({ path })
+
+      this.disabled=false
     }
   }
 }
